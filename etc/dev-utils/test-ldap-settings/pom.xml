@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.rhq</groupId>
+    <artifactId>rhq-parent</artifactId>
+    <version>4.9.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.rhq.dev-utils</groupId>
+  <artifactId>test-ldap-settings</artifactId>
+  <packaging>jar</packaging>
+
+  <name>RHQ DevUtils TestLdapSettings</name>
+  <description>A simple LDAP client to test LDAP configuration for use in the RHQ server.</description>
+  <url>http://www.jboss.org/rhq/</url>
+
+  <scm>
+    <connection>scm:git:git://git.fedorahosted.org/rhq/rhq.git</connection>
+    <developerConnection>scm:git:ssh://git.fedorahosted.org/git/rhq/rhq.git</developerConnection>
+    <url>http://git.fedorahosted.org/git/rhq/rhq.git</url>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>GPL</name>
+      <url>http://www.gnu.org/licenses/gpl.html</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Simeon Pinder</name>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Main-Class>org.rhq.devutils.TestLdapSettings</Main-Class>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

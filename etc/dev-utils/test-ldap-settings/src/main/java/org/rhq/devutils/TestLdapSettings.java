@@ -1,4 +1,4 @@
-package com.test;
+package org.rhq.devutils;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
