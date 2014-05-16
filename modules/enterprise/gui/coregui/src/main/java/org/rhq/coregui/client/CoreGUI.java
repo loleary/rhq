@@ -172,7 +172,8 @@ public class CoreGUI implements EntryPoint, ValueChangeHandler<String>, Event.Na
 
         messageCenter = new MessageCenter();
 
-        UserSessionManager.login();
+//        UserSessionManager.login();
+        UserSessionManager.login("rhqadmin", "rhqadmin");
     }
 
     public int getRpcTimeout() {
