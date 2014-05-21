@@ -130,17 +130,28 @@ public class MenuBarView extends EnhancedVLayout {
         userLabel.setAutoWidth();
         userLabel.setWrap(false);
 
-        Label lineLabel = new Label(" | ");
-        lineLabel.setWidth("12px");
-        lineLabel.setAlign(Alignment.CENTER);
-
-        String contents = "<a href='#" + LOGOUT_VIEW_ID.getName() + "' style='white-space: nowrap'>"
+        Label lineLabel1 = new Label(" | ");
+        lineLabel1.setWidth("12px");
+        lineLabel1.setAlign(Alignment.CENTER);
+        String contents = "<a href='#' onclick='keycloak.logout()' style='white-space: nowrap'>"
             + LOGOUT_VIEW_ID.getTitle() + "</a>";
+//        String contents = "<a href='#" + LOGOUT_VIEW_ID.getName() + "' style='white-space: nowrap'>"
+//            + LOGOUT_VIEW_ID.getTitle() + "</a>";
         Label logoutLink = new Label(contents);
         logoutLink.setAutoWidth();
+        
+        Label lineLabel2 = new Label(" | ");
+        lineLabel2.setWidth("12px");
+        lineLabel2.setAlign(Alignment.CENTER);
+        
+        contents = "<a href='#' onclick='keycloak.accountManagement()' style='white-space: nowrap'>Manage Account</a>";
+        Label managementAccountLink = new Label(contents);
+        managementAccountLink.setAutoWidth();
 
         layout.addMember(userLabel);
-        layout.addMember(lineLabel);
+        layout.addMember(lineLabel1);
+        layout.addMember(managementAccountLink);
+        layout.addMember(lineLabel2);
         layout.addMember(logoutLink);
 
         return layout;
