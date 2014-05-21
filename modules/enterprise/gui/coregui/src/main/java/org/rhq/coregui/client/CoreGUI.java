@@ -173,7 +173,8 @@ public class CoreGUI implements EntryPoint, ValueChangeHandler<String>, Event.Na
         messageCenter = new MessageCenter();
 
 //        UserSessionManager.login();
-        UserSessionManager.login("rhqadmin", "rhqadmin");
+//        UserSessionManager.login("rhqadmin", "rhqadmin");
+        new LoginView().login("rhqadmin", "rhqadmin");
     }
 
     public int getRpcTimeout() {
@@ -363,13 +364,13 @@ public class CoreGUI implements EntryPoint, ValueChangeHandler<String>, Event.Na
     public Canvas createContent(String viewName) {
         Canvas canvas;
 
-        if (viewName.equals(LOGOUT_VIEW) || LoginView.isLoginView()) {
-            UserSessionManager.logout();
-            rootCanvas.hide();
-            LoginView logoutView = new LoginView();
-            canvas = logoutView;
-            logoutView.showLoginDialog();
-        } else if (viewName.equals(DashboardsView.VIEW_ID.getName())) {
+//        if (viewName.equals(LOGOUT_VIEW) || LoginView.isLoginView()) {
+//            UserSessionManager.logout();
+//            rootCanvas.hide();
+//            LoginView logoutView = new LoginView();
+//            canvas = logoutView;
+//            logoutView.showLoginDialog();
+        if (viewName.equals(DashboardsView.VIEW_ID.getName())) {
             canvas = new DashboardsView();
         } else if (viewName.equals(InventoryView.VIEW_ID.getName())) {
             canvas = new InventoryView();
