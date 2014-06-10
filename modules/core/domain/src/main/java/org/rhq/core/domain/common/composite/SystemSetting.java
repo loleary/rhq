@@ -187,7 +187,9 @@ public enum SystemSetting {
      * This is a default password that can be used to connect to a remote SSH box.
      * Right now, it's used when remotely controlling/installing/uninstalling agents.
      */
-    REMOTE_SSH_PASSWORD_DEFAULT("REMOTE_SSH_PASSWORD_DEFAULT", PropertySimpleType.PASSWORD, false, false, true)
+    REMOTE_SSH_PASSWORD_DEFAULT("REMOTE_SSH_PASSWORD_DEFAULT", PropertySimpleType.PASSWORD, false, false, true),
+    
+    KEYCLOAK_URL("KEYCLOAK_URL", PropertySimpleType.STRING, false, false, true)
 
     ;
 

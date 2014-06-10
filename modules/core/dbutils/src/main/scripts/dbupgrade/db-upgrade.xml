@@ -2383,6 +2383,15 @@
               </statement>
             </schema-directSQL>
           </schemaSpec>
+
+            <schemaSpec version="2.151">
+                <schema-directSQL>
+                    <statement desc="URL of Keycloak server.">
+                        INSERT INTO rhq_system_config (id, property_key, property_value, default_property_value)
+                        VALUES (67, 'KEYCLOAK_URL', '', '')
+                    </statement>
+                </schema-directSQL>
+            </schemaSpec>
        
         </dbupgrade>
     </target>
