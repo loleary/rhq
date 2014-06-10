@@ -677,6 +677,14 @@ public class LoginView extends Canvas {
       });
     }-*/;
     
+    public native static boolean isKeycloakEnabled() /*-{
+        return $wnd.keycloak;
+    }-*/;
+    
+    public native static boolean isKeycloakReady() /*-{
+        return typeof($wnd.kcReady) != "undefined" && $wnd.kcReady;
+    }-*/;
+    
     public static boolean isLoginView() {
         return isLoginView && com.google.gwt.user.client.Window.Location.getHref().contains(LOGIN_VIEW);
     }
