@@ -176,6 +176,7 @@ public class CoreGUI implements EntryPoint, ValueChangeHandler<String>, Event.Na
             @Override
             public void run() {
                 if (LoginView.isKeycloakReady()) {
+                    Log.warn("Keycloak is ready to use");
                     this.cancel();
                 } else {
                     this.schedule(300);
@@ -184,9 +185,11 @@ public class CoreGUI implements EntryPoint, ValueChangeHandler<String>, Event.Na
         }.schedule(50);
 
         if (LoginView.isKeycloakEnabled()) {
+            Log.warn("Keycloak is enabled");
             // todo: parse keycloak data
             new LoginView().login("rhqadmin", "rhqadmin");
         } else {
+            Log.warn("Keycloak is disabled");
             UserSessionManager.login();
         }
         
