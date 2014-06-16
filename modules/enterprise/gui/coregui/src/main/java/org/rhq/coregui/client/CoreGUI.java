@@ -651,5 +651,9 @@ public class CoreGUI implements EntryPoint, ValueChangeHandler<String>, Event.Na
     public static boolean isDebugMode() {
         return !GWT.isScript();
     }
+    
+    public static boolean isKeycloakEnabled() {
+        return LoginView.isKeycloakEnabled();
+    }
 
 }
