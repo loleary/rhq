@@ -187,7 +187,6 @@ public class EventManagerBean implements EventManagerLocal, EventManagerRemote {
             } finally {
                 JDBCUtil.safeClose(ps);
             }
-
         } catch (Throwable t) {
             // TODO what do we want to do here ?
             log.warn("addEventData: Insert of events failed : " + t.getMessage());
@@ -198,6 +197,39 @@ public class EventManagerBean implements EventManagerLocal, EventManagerRemote {
                     log.warn("     : " + e2.getMessage());
                 if (t.getCause() != null)
                     log.warn("     : " + t.getCause().getMessage());
+            }
+            // provide some details around what events caused the failure
+            if (log.isDebugEnabled()) {
+                StringBuilder msg = new StringBuilder("Event source(s) at time of failure: "); //$NON-NLS-1$
+                if (events == null || events.isEmpty()) {
+                    msg.append("empty"); //$NON-NLS-1$
+                } else {
+                    msg.append("\n"); //$NON-NLS-1$
+                    for (EventSource eventSource : events.keySet()) {
+                        String defName = ((eventSource.getEventDefinition() != null && eventSource.getEventDefinition().getName() != null) ? eventSource.getEventDefinition().getName() : "<undefined>"); //$NON-NLS-1$
+                        String resId = ((eventSource.getResource() != null) ? "" + eventSource.getResource().getId() : "<undefined>"); //$NON-NLS-1$ //$NON-NLS-2$
+                        String srcLoc = ((eventSource.getLocation() != null) ? eventSource.getLocation() : "<undefined>"); //$NON-NLS-1$
+                        msg.append("\t").append("EventDefinition.name=").append(defName).append(","); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                        msg.append("Resource.id=").append(resId).append(","); //$NON-NLS-1$ //$NON-NLS-2$
+                        msg.append("EventSource.location=").append(srcLoc); //$NON-NLS-1$
+                        // if trace is on output all events too
+                        if (log.isTraceEnabled()) {
+                            Set<Event> eventData = events.get(eventSource);
+                            msg.append(",events={\n"); //$NON-NLS-1$
+                            for (Event event : eventData) {
+                                String eventTimeStamp = Long.toString(event.getTimestamp());
+                                String eventSeverity = ((event.getSeverity() != null) ? event.getSeverity().toString() : "<undefined>"); //$NON-NLS-1$
+                                msg.append("\t\t").append("Event.timestamp=").append(eventTimeStamp).append(",").append("Event.severity=").append(eventSeverity).append(",").append("Event.detail={\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+                                msg.append("\t\t\t").append(event.getDetail()).append("\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                                msg.append("\t\t").append("}\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                            }
+                            msg.append("\t").append("}\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                        } else {
+                            msg.append("\n"); //$NON-NLS-1$
+                        }
+                    }
+                }
+                log.debug(msg.toString());
             }
         } finally {
             JDBCUtil.safeClose(conn);
